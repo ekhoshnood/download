@@ -18,8 +18,8 @@ def download_images():
     print("in download image def")
 
     url = "http://bayanbox.ir/view/2001315563847741354/%D8%B9%DA%A9%D8%B3-%D9%86%D9%88%D8%B4%D8%AA%D9%87-good-morning-2.jpg"
-    url1 = ""
-    url2 = ""
+    url1 = "http://files.namnak.com/users/lm/aup/201804/22_pics/%D8%B9%DA%A9%D8%B3-%D9%87%D8%A7%DB%8C-%D8%AE%D9%86%D8%AF%D9%87-%D8%AF%D8%A7%D8%B1.jpg"
+    url2 = "http://delbaraneh.com/wp-content/uploads/2019/04/%D8%B9%DA%A9%D8%B3-%D8%AF%D8%AE%D8%AA%D8%B1-%D8%B2%DB%8C%D8%A8%D8%A7-%D8%A8%D8%B1%D8%A7%DB%8C-%D9%BE%D8%B1%D9%88%D9%81%D8%A7%DB%8C%D9%84-1.jpg"
     url3 = ""
     url4 = ""
     url5 = ""
@@ -30,7 +30,7 @@ def download_images():
 
     # List of images to download
     image_urls = [
-        url,
+        url2,
     ]
 
     for image_url in image_urls:
@@ -71,6 +71,7 @@ def download_images():
         # This saves the model so be sure that is it valid
         image.image.save(file_name, files.File(lf))
         print("after save")
+        lf.delete
     print("before return")
 
     return
