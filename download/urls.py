@@ -24,6 +24,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('actionUrl', views.download_btn, name='actionUrl'),
+    path('delete', views.download_btn, name='delete'),
     path('', views.homepage),
 
 ]

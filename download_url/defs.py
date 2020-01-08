@@ -1,6 +1,7 @@
 import urllib.request
 # import telebot
 import os
+import time
 
 from .models import Channels
 
@@ -71,10 +72,23 @@ def download_images():
         # This saves the model so be sure that is it valid
         image.image.save(file_name, files.File(lf))
         print("after save")
-        lf.delete
     print("before return")
+    #
+    # print("time to sleep")
+    # time.sleep(2)
+    #
+    # print("ready to delete")
+    # channel = Channels.objects.all()
+    # for pk in channel:
+    #     try:
+    #         print("in for")
+    #         print("i = " + str(pk.))
+    #         channel.objects.get(id=pk).image.delete(save=True)
+    #     except:
+    #         print("except run")
+    # print("after for before render")
 
-    return
+    return image.pk
 
 
 def send_photo(chat_id, message_id, id):
