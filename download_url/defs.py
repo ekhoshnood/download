@@ -3,14 +3,14 @@ import urllib.request
 import os
 import time
 
-from .models import Channels
+from .models import Post
 
 # token = '945735692:AAGRmd7V6ENtP2SGuDsQg-aQVgoRUkr5tgQ'
 # bot = telebot.TeleBot(token)
 
 
 def insert():
-    f = Channels(chat_title="this is chat title", chat_username="chat username", text="1st text test", is_retail=True)
+    f = Post(chat_title="this is chat title", chat_username="chat username", text="1st text test", is_retail=True)
     f.save()
     return
 
@@ -31,7 +31,7 @@ def download_images():
 
     # List of images to download
     image_urls = [
-        url2,
+        url,
     ]
 
     for image_url in image_urls:
@@ -65,7 +65,7 @@ def download_images():
             print("after lf.write")
 
         # Create the model you want to save the image to
-        image = Channels()
+        image = Post()
         print("after image")
 
         # Save the temporary image to the model#
@@ -95,7 +95,7 @@ def send_photo(chat_id, message_id, id):
     print("id = " + str(id))
     print("in send_photo")
 
-    record = Channels.objects.get(pk=id)
+    record = Post.objects.get(pk=id)
     print("id1")
     print(record)
     id1chattitle = record.chat_title

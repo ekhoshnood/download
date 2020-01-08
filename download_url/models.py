@@ -1,8 +1,7 @@
 from django.db import models
 
-from django.core.files import File
-from urllib.request import urlopen
-from tempfile import NamedTemporaryFile
+from django.db.models.signals import post_delete
+from django.dispatch import receiver
 
 
 # Create your models here.
@@ -34,7 +33,7 @@ def upload_location(*args, **kwargs):
     return file_path
 
 
-class Channels(models.Model):
+class Post(models.Model):
     chat_id                 = models.IntegerField(blank=True, null=True)
     admin_id                = models.IntegerField(blank=True, null=True)
     ad_user                 = models.CharField(max_length=50, blank=True, null=True)
@@ -63,19 +62,7 @@ class Channels(models.Model):
     def __str__(self):
         return self.chat_title
 
+@receiver(post_delete, sender=Post)
+def submission_delete(sender, instance, **kwargs):
+    instance.image.delete(False)
 
-    def get_remote_image(self, image_url):
-        print("in def get remote image")
-        if self.image_url and not self.image:
-            print("after if")
-            img_temp = NamedTemporaryFile(delete=True)
-            print("before write")
-            img_temp.write(urlopen(self.image_url).read())
-            print("before flush")
-            img_temp.flush()
-            print("before save")
-            self.image.save(f"image_{self.pk}", File(img_temp))
-        print("before final save")
-        self.save()
-        print("before return")
-        return
