@@ -1,8 +1,6 @@
 from django.db import models
-
 from django.db.models.signals import post_delete
 from django.dispatch import receiver
-
 
 # Create your models here.
 class User(models.Model):
@@ -28,17 +26,23 @@ class Text(models.Model):
 
 
 # data list model
+class Channel(models.Model):
+    chat_id                 = models.IntegerField(blank=True, null=True)
+    admin_id                = models.IntegerField(blank=True, null=True)
+    ad_user                 = models.CharField(max_length=50, blank=True, null=True)
+    chat_title              = models.CharField(max_length=50)
+    chat_username           = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.chat_title
+
 def upload_location(*args, **kwargs):
     file_path = 'media/text1.jpg'
     return file_path
 
 
 class Post(models.Model):
-    chat_id                 = models.IntegerField(blank=True, null=True)
-    admin_id                = models.IntegerField(blank=True, null=True)
-    ad_user                 = models.CharField(max_length=50, blank=True, null=True)
-    chat_title              = models.CharField(max_length=50)
-    chat_username           = models.CharField(max_length=50)
+    channel                 = models.ForeignKey(Channel, on_delete=models.CASCADE)
     message_id              = models.IntegerField(blank=True, null=True)
     date                    = models.IntegerField(blank=True, null=True)
     text                    = models.TextField(max_length=5000)
@@ -60,7 +64,7 @@ class Post(models.Model):
     electrical              = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.chat_title
+        return str(self.message_id)
 
 @receiver(post_delete, sender=Post)
 def submission_delete(sender, instance, **kwargs):
