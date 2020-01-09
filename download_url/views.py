@@ -19,3 +19,4 @@ def delete_btn(request):
 
 def homepage(request):
     return render(request, 'home.html')
+
