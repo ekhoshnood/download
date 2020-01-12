@@ -28,39 +28,49 @@ class Text(models.Model):
 
 
 # data list model
+class Channel(models.Model):
+    chat_id                 = models.IntegerField(blank=True, null=True, unique=True)
+    admin_id                = models.IntegerField(blank=True, null=True)
+    admin_user              = models.CharField(max_length=50, null=True)
+    chat_title              = models.CharField(max_length=50, blank=True)
+    chat_username           = models.CharField(max_length=50)
+    phone                   = models.IntegerField(null=True)
+    date_purchased          = models.DateField(auto_now_add=True) # TODO: date field will be added when purchasing with this (datetime.datetime.today().date())
+    is_purchased            = models.BooleanField(default=True)
+    # wholesale or retail
+    is_wholesale = models.BooleanField(default=False)
+    is_retail = models.BooleanField(default=False)
+    # JOBS
+    shoes = models.BooleanField(default=False)
+    bags = models.BooleanField(default=False)
+    women_clothes = models.BooleanField(default=False)
+    men_clothes = models.BooleanField(default=False)
+    kids_clothes = models.BooleanField(default=False)
+    underwear = models.BooleanField(default=False)
+    makeup = models.BooleanField(default=False)
+    homestuff = models.BooleanField(default=False)
+    electric_home = models.BooleanField(default=False)
+    glasses = models.BooleanField(default=False)
+    electrical = models.BooleanField(default=False)
+
+
+def __str__(self):
+        return self.chat_username
+
 def upload_location(*args, **kwargs):
     file_path = 'media/text1.jpg'
     return file_path
 
 
 class Post(models.Model):
-    chat_id                 = models.IntegerField(blank=True, null=True)
-    admin_id                = models.IntegerField(blank=True, null=True)
-    ad_user                 = models.CharField(max_length=50, blank=True, null=True)
-    chat_title              = models.CharField(max_length=50)
-    chat_username           = models.CharField(max_length=50)
+    channel                 = models.ForeignKey(Channel, on_delete=models.CASCADE)
     message_id              = models.IntegerField(blank=True, null=True)
     date                    = models.IntegerField(blank=True, null=True)
     text                    = models.TextField(max_length=5000)
     image                   = models.ImageField(blank=True, null=True)
-    # wholesale or retail
-    is_wholesale            = models.BooleanField(default=False)
-    is_retail               = models.BooleanField(default=False)
-    # JOBS
-    shoes                   = models.BooleanField(default=False)
-    bags                    = models.BooleanField(default=False)
-    women_clothes           = models.BooleanField(default=False)
-    men_clothes             = models.BooleanField(default=False)
-    kids_clothes            = models.BooleanField(default=False)
-    underwear               = models.BooleanField(default=False)
-    makeup                  = models.BooleanField(default=False)
-    homestuff               = models.BooleanField(default=False)
-    electric_home           = models.BooleanField(default=False)
-    glasses                 = models.BooleanField(default=False)
-    electrical              = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.chat_title
+        return str(self.message_id)
 
 @receiver(post_delete, sender=Post)
 def submission_delete(sender, instance, **kwargs):
