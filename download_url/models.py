@@ -27,20 +27,6 @@ class Text(models.Model):
         return self.text
 
 
-# data list model
-class Channel(models.Model):
-    chat_id                 = models.IntegerField(blank=True, null=True, unique=True)
-    admin_id                = models.IntegerField(blank=True, null=True)
-    admin_user              = models.CharField(max_length=50, null=True)
-    chat_title              = models.CharField(max_length=50, blank=True)
-    chat_username           = models.CharField(max_length=50)
-    phone                   = models.IntegerField(null=True)
-    date_purchased          = models.DateField(auto_now_add=True) # TODO: date field will be added when purchasing with this (datetime.datetime.today().date())
-    is_purchased            = models.BooleanField(default=True)
-
-    def __str__(self):
-        return self.chat_username
-
 
 class SaleType(models.Model):
     # wholesale or retail
@@ -51,9 +37,6 @@ class SaleType(models.Model):
 
     def __str__(self):
         return self.saletype
-
-
-
 
 
 class Senf(models.Model):
@@ -76,6 +59,22 @@ class Senf(models.Model):
     def __str__(self):
         return self.senf
 
+
+# data list model
+class Channel(models.Model):
+    chat_id                 = models.IntegerField(blank=True, null=True, unique=True)
+    admin_id                = models.IntegerField(blank=True, null=True)
+    admin_user              = models.CharField(max_length=50, null=True)
+    chat_title              = models.CharField(max_length=50, blank=True)
+    chat_username           = models.CharField(max_length=50)
+    phone                   = models.IntegerField(null=True)
+    date_purchased          = models.DateField(auto_now_add=True) # TODO: date field will be added when purchasing with this (datetime.datetime.today().date())
+    is_purchased            = models.BooleanField(default=True)
+    saletype                = models.ManyToManyField(SaleType)
+    senf                    = models.ManyToManyField(Senf)
+
+    def __str__(self):
+        return self.chat_username
 
 
 class Post(models.Model):
