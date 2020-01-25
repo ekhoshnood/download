@@ -30,20 +30,21 @@ class Text(models.Model):
 
 class SaleType(models.Model):
     # wholesale or retail
-    saletype                = models.CharField(max_length=50, null=True)
+    name                = models.CharField(max_length=50, null=True)
 
+    '''
     is_wholesale = models.BooleanField(default=False)
     is_retail = models.BooleanField(default=False)
-
+    '''
     def __str__(self):
-        return self.saletype
+        return self.name
 
 
 class Senf(models.Model):
     #shoes, glassess or ...
-    senf                = models.CharField(max_length=50, null=True)
+    name                = models.CharField(max_length=50, null=True)
 
-
+    '''
     shoes = models.BooleanField(default=False)
     bags = models.BooleanField(default=False)
     women_clothes = models.BooleanField(default=False)
@@ -55,9 +56,9 @@ class Senf(models.Model):
     electric_home = models.BooleanField(default=False)
     glasses = models.BooleanField(default=False)
     electrical = models.BooleanField(default=False)
-
+    '''
     def __str__(self):
-        return self.senf
+        return self.name
 
 
 # data list model
@@ -82,12 +83,12 @@ class Post(models.Model):
     message_id              = models.IntegerField(blank=True, null=True)
     date                    = models.IntegerField(blank=True, null=True)
     text                    = models.TextField(max_length=5000, null=True)
-    image                   = models.ImageField(blank=True, null=True)
+    # image                   = models.ImageField(blank=True, null=True)
 
     def __str__(self):
         return str(self.message_id)
-
+'''
 @receiver(post_delete, sender=Post)
 def submission_delete(sender, instance, **kwargs):
     instance.image.delete(False)
-
+'''
