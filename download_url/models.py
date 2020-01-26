@@ -83,12 +83,12 @@ class Post(models.Model):
     message_id              = models.IntegerField(blank=True, null=True)
     date                    = models.IntegerField(blank=True, null=True)
     text                    = models.TextField(max_length=5000, null=True)
-    # image                   = models.ImageField(blank=True, null=True)
+    price                   = models.IntegerField(blank=True, null=True)
+    image                   = models.ImageField(blank=True, null=True)
 
     def __str__(self):
         return str(self.message_id)
-'''
+
 @receiver(post_delete, sender=Post)
 def submission_delete(sender, instance, **kwargs):
     instance.image.delete(False)
-'''
