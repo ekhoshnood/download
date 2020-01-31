@@ -76,3 +76,8 @@ def send_photo(chat_id, message_id, id):
 
     # bot.send_photo(chat_id, photo=open(path, 'rb'))
     return
+
+
+def get_cahnnel_with_sprcific_saletype_senf():
+    for channel in Channel.objects.filter(saletype__name="wholesale"):
+        print(channel)

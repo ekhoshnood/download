@@ -12,7 +12,7 @@ urlpatterns = [
     # path('delete', views.download_btn, name='delete'),
     path('', views.homepage),
 
-]
+] #+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
