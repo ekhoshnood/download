@@ -17,7 +17,6 @@ def delete_btn(request):
     i = get_object_or_404(Post, pk=1)
 
 
-
 def homepage(request):
     return render(request, 'home.html')
 
