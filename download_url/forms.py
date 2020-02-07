@@ -1,8 +1,17 @@
 from django import forms
-from .models import Post
+from .models import Post, Channel, Senf, SaleType
 
-class Create_Post_form(forms.Form):
+class Channel_form(forms.ModelForm):
+    senf = forms.ModelMultipleChoiceField(widget=forms.CheckboxSelectMultiple, queryset=Senf.objects.all())
+    saletype = forms.ModelMultipleChoiceField(widget=forms.CheckboxSelectMultiple, queryset=SaleType.objects.all())
 
     class Meta:
-        model = Post
-        fields = ['text', 'price', 'image']
+
+        model = Channel
+        fields = ['phone', 'chat_username', 'chat_title', 'senf', 'saletype']
+
+    # def __init__(self, *args, **kwargs):
+    #     super(Channel_form, self).__init__(*args, **kwargs)
+    #
+    #     self.fields["senf"].widget = forms.CheckboxSelectMultiple()
+    #     self.fields["senf"].queryset = Channel.objects.all()

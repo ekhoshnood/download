@@ -10,7 +10,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('actionUrl', views.download_btn, name='actionUrl'),
     # path('delete', views.download_btn, name='delete'),
-    path('', views.homepage),
+    path('', views.homepage, name='home'),
+    path('form', views.create_post, name='create_post'),
 
 ] #+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

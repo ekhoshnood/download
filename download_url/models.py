@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib import admin
+from django.forms import CheckboxSelectMultiple
 
 from django.db.models.signals import post_delete
 from django.dispatch import receiver
@@ -32,10 +34,6 @@ class SaleType(models.Model):
     # wholesale or retail
     name                = models.CharField(max_length=50, null=True)
 
-    '''
-    is_wholesale = models.BooleanField(default=False)
-    is_retail = models.BooleanField(default=False)
-    '''
     def __str__(self):
         return self.name
 
@@ -44,19 +42,6 @@ class Senf(models.Model):
     #shoes, glassess or ...
     name                = models.CharField(max_length=50, null=True)
 
-    '''
-    shoes = models.BooleanField(default=False)
-    bags = models.BooleanField(default=False)
-    women_clothes = models.BooleanField(default=False)
-    men_clothes = models.BooleanField(default=False)
-    kids_clothes = models.BooleanField(default=False)
-    underwear = models.BooleanField(default=False)
-    makeup = models.BooleanField(default=False)
-    homestuff = models.BooleanField(default=False)
-    electric_home = models.BooleanField(default=False)
-    glasses = models.BooleanField(default=False)
-    electrical = models.BooleanField(default=False)
-    '''
     def __str__(self):
         return self.name
 
@@ -92,3 +77,10 @@ class Post(models.Model):
 @receiver(post_delete, sender=Post)
 def submission_delete(sender, instance, **kwargs):
     instance.image.delete(False)
+
+
+
+class MyModelAdmin(admin.ModelAdmin):
+    formfield_overrides = {
+        models.ManyToManyField: {'widget': CheckboxSelectMultiple},
+    }
